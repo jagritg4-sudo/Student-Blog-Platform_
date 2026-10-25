@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Academic Portal Login – CampusConnect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,800;1,500&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="home.css">
+  <style>
+    /* Standalone Portal Specific Layout */
+    .portal-page-body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--paper);
+      background-image: 
+        radial-gradient(var(--line) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .portal-nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      border-bottom: 1px solid var(--line);
+      background: var(--paper-raised);
+    }
+
+    .portal-container {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 24px;
+      gap: 48px;
+      align-items: center;
+      width: 100%;
+    }
+
+    @media (max-width: 900px) {
+      .portal-container {
+        grid-template-columns: 1fr;
+        margin: 20px auto;
+        gap: 32px;
+      }
+      .portal-left-pane {
+        display: none;
+      }
+    }
+
+    .portal-left-pane {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .portal-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(227, 162, 60, 0.15);
+      border: 1px solid rgba(227, 162, 60, 0.35);
+      border-radius: 999px;
+      color: var(--marigold-dark);
+      font-size: 12px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      width: fit-content;
+    }
+
+    .portal-main-title {
+      font-family: var(--font-display);
+      font-size: 38px;
+      line-height: 1.2;
+      color: var(--ink);
+      margin: 0;
+    }
+
+    .portal-subtitle {
+      font-size: 15.5px;
+      line-height: 1.6;
+      color: var(--ink-soft);
+      margin: 0;
+    }
+
+    .portal-features-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .portal-feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .portal-feature-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--paper-raised);
+      border: 1px solid var(--line-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .portal-feature-text strong {
+      display: block;
+      font-size: 14px;
+      color: var(--ink);
+    }
+
+    .portal-feature-text span {
+      font-size: 13px;
+      color: var(--ink-soft);
+    }
+
+    .portal-testimonial-box {
+      background: var(--paper-raised);
+      border: 1.5px dashed var(--line-strong);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      position: relative;
+    }
+
+    .portal-quote-text {
+      font-style: italic;
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      line-height: 1.5;
+      margin: 0 0 8px;
+    }
+
+    .portal-quote-author {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--sage-dark);
+      font-weight: 700;
+    }
+
+    .portal-auth-card {
+      background: var(--paper-raised);
+      border: 1.5px solid var(--line-strong);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-pop);
+      padding: 32px;
+      position: relative;
+      animation: cardPop 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes cardPop {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body class="portal-page-body">
+
+  <!-- Top Navigation Bar -->
+  <header class="portal-nav-bar">
+    <a href="home.html" class="brand">
+      <span class="brand-pin">📌</span>
+      <span class="brand-text">CampusConnect</span>
+    </a>
+
+    <div style="display:flex; align-items:center; gap:14px;">
+      <button id="theme-toggle-btn" class="nav-icon-btn" aria-label="Toggle Theme" title="Toggle Theme">🌙</button>
+      <a href="home.html" class="btn btn-outline btn-sm">
+        <span>← Back to Campus Corkboard</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Portal Split Container -->
+  <main class="portal-container">
+
+    <!-- Left Informational Pane -->
+    <div class="portal-left-pane">
+      <div class="portal-hero-badge">
+        <span>🎓</span> <span>Campus ID & Academic SSO</span>
+      </div>
+
+      <h1 class="portal-main-title">
+        The Digital Corkboard For College Thinkers.
+      </h1>
+
+      <p class="portal-subtitle">
+        Sign in to pin study tips, exam revision checklists, team project collabs, and discover what your classmates are working on this semester.
+      </p>
+
+      <div class="portal-features-list">
+        <div class="portal-feature-item">
+          <div class="portal-feature-icon">📌</div>
+          <div class="portal-feature-text">
+            <strong>Interactive Sticky Notes Pinboard</strong>
+            <span>Create pastel sticky notes, check off study tasks, and organize by color code.</span>
+          </div>
+        </div>
+        <div class="portal-feature-item">
+          <div class="portal-feature-icon">📝</div>
+          <div class="portal-feature-text">
+            <strong>Student Blog Publishing</strong>
+            <span>Share deep project stories, exam strategies, and technical insights with classmates.</span>
+          </div>
+        </div>
+        <div class="portal-feature-item">
+          <div class="portal-feature-icon">🔒</div>
+          <div class="portal-feature-text">
+            <strong>Isolated Profile Sessions</strong>
+            <span>Manage notes published under your student roll number with easy deletion on sign-out.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial -->
+      <div class="portal-testimonial-box">
+        <span style="position:absolute; top:-12px; left:20px; font-size:22px;">📌</span>
+        <p class="portal-quote-text">
+          "CampusConnect turned chaotic class group chats into a clean, searchable board. It's the first thing I check before midterm review sessions."
+        </p>
+        <div class="portal-quote-author">— Priya Sharma · 5th Sem IT</div>
+      </div>
+    </div>
+
+    <!-- Right Authentication Box -->
+    <div class="portal-auth-card">
+      <span class="modal-pin" style="top:-14px;">📌</span>
+
+      <div style="text-align:center; margin-bottom:20px;">
+        <span style="font-size:36px; display:inline-block; margin-bottom:6px;">🎓</span>
+        <h2 style="font-family:var(--font-display); font-size:24px; margin:0 0 4px; color:var(--ink);">Student Academic Portal</h2>
+        <span style="font-family:var(--font-mono); font-size:12px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.04em;">Official Campus Verification</span>
+      </div>
+
+      <!-- Auth Tabs: Sign In vs Register -->
+      <div class="auth-tabs-row" role="tablist">
+        <button type="button" class="auth-tab-btn active" id="portal-tab-signin" role="tab" aria-selected="true">
+          <span>🎓</span> <span>Student Sign In</span>
+        </button>
+        <button type="button" class="auth-tab-btn" id="portal-tab-register" role="tab" aria-selected="false">
+          <span>📝</span> <span>New Registration</span>
+        </button>
+      </div>
+
+      <!-- PANEL 1: SIGN IN -->
+      <div id="portal-panel-signin" class="auth-panel">
+        <!-- 1-Click Evaluation Personas -->
+        <div class="auth-demo-personas" style="margin-top:14px;">
+          <div class="auth-demo-label">⚡ 1-Click Demo Profiles for Fast Evaluation:</div>
+          <div class="demo-personas-grid">
+            <button type="button" class="demo-persona-card" data-persona="aarav">
+              <span class="dp-avatar">AS</span>
+              <div class="dp-info">
+                <strong class="dp-name">Aarav Sharma</strong>
+                <span class="dp-roll">3rd Sem CSE · Roll 23CS108</span>
+              </div>
+              <span class="dp-arrow">→</span>
+            </button>
+            <button type="button" class="demo-persona-card" data-persona="priya">
+              <span class="dp-avatar" style="background:var(--marigold-dark);">PS</span>
+              <div class="dp-info">
+                <strong class="dp-name">Priya Sharma</strong>
+                <span class="dp-roll">5th Sem IT · Top Writer</span>
+              </div>
+              <span class="dp-arrow">→</span>
+            </button>
+            <button type="button" class="demo-persona-card" data-persona="rahul">
+              <span class="dp-avatar" style="background:#8A6FB0;">RV</span>
+              <div class="dp-info">
+                <strong class="dp-name">Rahul Verma</strong>
+                <span class="dp-roll">7th Sem ECE · Tech Lead</span>
+              </div>
+              <span class="dp-arrow">→</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="auth-divider">
+          <span>or enter campus credentials</span>
+        </div>
+
+        <form id="portal-login-form" class="auth-form-wrap">
+          <div class="form-group">
+            <label class="form-label" for="p-email-input">
+              <span>Campus Email or Roll Number</span>
+              <small>e.g. 23CS108</small>
+            </label>
+            <div class="auth-input-wrapper">
+              <span class="auth-input-icon">👤</span>
+              <input type="text" id="p-email-input" class="form-input auth-input" placeholder="23CS108 · 3rd Sem" value="23CS108 · 3rd Sem CSE" required autocomplete="username">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="p-password-input">
+              <span>Password</span>
+              <button type="button" id="p-forgot-btn" class="auth-text-link">Forgot?</button>
+            </label>
+            <div class="auth-input-wrapper">
+              <span class="auth-input-icon">🔒</span>
+              <input type="password" id="p-password-input" class="form-input auth-input" placeholder="Enter password" value="campus2026" required autocomplete="current-password">
+              <button type="button" class="toggle-password-btn" aria-label="Show password" title="Toggle password visibility">👁️</button>
+            </div>
+          </div>
+
+          <div class="auth-options-row">
+            <label class="auth-checkbox-label">
+              <input type="checkbox" id="p-remember-me" checked>
+              <span>Remember session on campus</span>
+            </label>
+          </div>
+
+          <button type="submit" id="p-login-submit" class="btn btn-primary auth-submit-btn">
+            <span>Sign In to CampusConnect</span> <span>🎓</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- PANEL 2: REGISTRATION -->
+      <div id="portal-panel-register" class="auth-panel" style="display:none; margin-top:14px;">
+        <form id="portal-register-form" class="auth-form-wrap">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="form-group">
+              <label class="form-label" for="p-reg-name">Full Name *</label>
+              <input type="text" id="p-reg-name" class="form-input" placeholder="e.g. Kabir Sethi" required maxlength="50">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="p-reg-roll">Roll No / PRN *</label>
+              <input type="text" id="p-reg-roll" class="form-input" placeholder="e.g. 23CS142" required maxlength="20">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="p-reg-email">College Email *</label>
+            <div class="auth-input-wrapper">
+              <span class="auth-input-icon">✉️</span>
+              <input type="email" id="p-reg-email" class="form-input auth-input" placeholder="kabir.sethi@campusconnect.edu" required>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1.2fr 0.8fr; gap:12px;">
+            <div class="form-group">
+              <label class="form-label" for="p-reg-branch">Department</label>
+              <select id="p-reg-branch" class="form-select">
+                <option value="CSE">Computer Science (CSE)</option>
+                <option value="IT">Information Tech (IT)</option>
+                <option value="ECE">Electronics (ECE)</option>
+                <option value="AI/DS">AI & Data Science (AI/DS)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="p-reg-sem">Semester</label>
+              <select id="p-reg-sem" class="form-select">
+                <option value="3rd Sem" selected>3rd Sem</option>
+                <option value="1st Sem">1st Sem</option>
+                <option value="2nd Sem">2nd Sem</option>
+                <option value="4th Sem">4th Sem</option>
+                <option value="5th Sem">5th Sem</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="p-reg-password">Password *</label>
+            <div class="auth-input-wrapper">
+              <span class="auth-input-icon">🔒</span>
+              <input type="password" id="p-reg-password" class="form-input auth-input" placeholder="At least 6 chars" required minlength="6">
+              <button type="button" class="toggle-password-btn" aria-label="Show password">👁️</button>
+            </div>
+          </div>
+
+          <button type="submit" id="p-reg-submit" class="btn btn-primary auth-submit-btn">
+            <span>Create Campus Account & Sign In</span> <span>✨</span>
+          </button>
+        </form>
+      </div>
+
+      <div style="margin-top:16px; padding-top:14px; border-top:1px dashed var(--line); font-size:12px; color:var(--ink-faint); text-align:center;">
+        <span>🔒 256-bit Encrypted Campus SSO • Session isolated per student profile</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- Simple Toast for Portal -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <script>
+    // Theme sync
+    const currentTheme = localStorage.getItem('campus_theme') || 'light';
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    if (currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      if (themeBtn) themeBtn.textContent = '☀️';
+    }
+
+    themeBtn?.addEventListener('click', () => {
+      const active = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      if (active === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeBtn.textContent = '☀️';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        themeBtn.textContent = '🌙';
+      }
+      localStorage.setItem('campus_theme', active);
+    });
+
+    // Toast
+    function showToast(msg, icon = '📌') {
+      const c = document.getElementById('toast-container');
+      if (!c) return;
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.innerHTML = `<span class="toast-icon">${icon}</span><span>${msg}</span>`;
+      c.appendChild(t);
+      requestAnimationFrame(() => t.classList.add('show'));
+      setTimeout(() => {
+        t.classList.remove('show');
+        setTimeout(() => t.remove(), 350);
+      }, 3000);
+    }
+
+    // Tab Switching
+    const tabSignin = document.getElementById('portal-tab-signin');
+    const tabRegister = document.getElementById('portal-tab-register');
+    const panelSignin = document.getElementById('portal-panel-signin');
+    const panelRegister = document.getElementById('portal-panel-register');
+
+    tabSignin?.addEventListener('click', () => {
+      tabSignin.classList.add('active');
+      tabRegister.classList.remove('active');
+      panelSignin.style.display = 'block';
+      panelRegister.style.display = 'none';
+    });
+
+    tabRegister?.addEventListener('click', () => {
+      tabRegister.classList.add('active');
+      tabSignin.classList.remove('active');
+      panelSignin.style.display = 'none';
+      panelRegister.style.display = 'block';
+    });
+
+    // Password Visibility Toggle
+    document.querySelectorAll('.toggle-password-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const input = btn.parentElement.querySelector('input');
+        if (input.type === 'password') {
+          input.type = 'text';
+          btn.textContent = '🙈';
+        } else {
+          input.type = 'password';
+          btn.textContent = '👁️';
+        }
+      });
+    });
+
+    // 1-Click Demo Personas
+    const DEMO_PERSONAS = {
+      aarav: { id: "23CS108", name: "Aarav Sharma", roll: "23CS108", branch: "3rd Sem CSE", initials: "AS", email: "aarav.sharma@campusconnect.edu" },
+      priya: { id: "22IT045", name: "Priya Sharma", roll: "22IT045", branch: "5th Sem IT", initials: "PS", email: "priya.sharma@campusconnect.edu" },
+      rahul: { id: "21EC089", name: "Rahul Verma", roll: "21EC089", branch: "7th Sem ECE", initials: "RV", email: "rahul.verma@campusconnect.edu" }
+    };
+
+    document.querySelectorAll('.demo-persona-card').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const personaKey = btn.dataset.persona;
+        const user = DEMO_PERSONAS[personaKey];
+        if (user) {
+          localStorage.setItem('campus_user', JSON.stringify(user));
+          showToast(`Welcome back, ${user.name}! Redirecting to corkboard... 🎓`, "👋");
+          setTimeout(() => {
+            window.location.href = 'home.html#pinboard';
+          }, 600);
+        }
+      });
+    });
+
+    // Sign In Form Submit
+    document.getElementById('portal-login-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const val = document.getElementById('p-email-input').value.trim();
+      const name = val.includes('@') ? val.split('@')[0].replace('.', ' ') : (val || "Student");
+      const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || "ST";
+      const user = {
+        id: val || ("user-" + Date.now()),
+        name: name,
+        roll: val,
+        initials: initials,
+        branch: "3rd Sem"
+      };
+      localStorage.setItem('campus_user', JSON.stringify(user));
+      showToast(`Welcome, ${user.name}! Redirecting to corkboard... 🎓`, "✨");
+      setTimeout(() => {
+        window.location.href = 'home.html#pinboard';
+      }, 600);
+    });
+
+    // Register Form Submit
+    document.getElementById('portal-register-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('p-reg-name').value.trim();
+      const roll = document.getElementById('p-reg-roll').value.trim();
+      const branch = document.getElementById('p-reg-branch').value;
+      const sem = document.getElementById('p-reg-sem').value;
+      const initials = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || "ST";
+      const user = {
+        id: roll || ("user-" + Date.now()),
+        name: name,
+        roll: `${roll} · ${sem} ${branch}`,
+        initials: initials,
+        branch: `${sem} ${branch}`
+      };
+      localStorage.setItem('campus_user', JSON.stringify(user));
+      showToast(`Account created for ${user.name}! Entering campus... 🎓`, "✨");
+      setTimeout(() => {
+        window.location.href = 'home.html#pinboard';
+      }, 600);
+    });
+
+    document.getElementById('p-forgot-btn')?.addEventListener('click', () => {
+      showToast("Password reset token generated: KEY-CAMPUS-2026. Use password 'campus2026' to sign in!", "🔑");
+    });
+  </script>
+</body>
+
+</html>

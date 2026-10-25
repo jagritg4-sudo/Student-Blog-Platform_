@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusConnect – Student Blog Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,900;1,500&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="home.css">
+</head>
+
+<body class="preloading">
+
+  <!-- ============ READING SCROLL PROGRESS BAR ============ -->
+  <div id="reading-progress-bar" class="reading-progress-bar"></div>
+
+  <!-- ============ PRELOADER (3s Loading Bar — Campus Corkboard Theme) ============ -->
+  <div id="preloader" class="preloader" role="progressbar" aria-label="Loading CampusConnect" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <div class="preloader-card">
+      <div class="preloader-pin-wrapper">
+        <span class="preloader-pin" aria-hidden="true">📌</span>
+      </div>
+      <div class="preloader-tag">Campus Corkboard</div>
+      <div class="preloader-brand">CampusConnect</div>
+      <div class="preloader-eyebrow">— the campus corkboard, digitized —</div>
+      <div class="preloader-divider"></div>
+      
+      <div class="preloader-bar-container">
+        <div class="preloader-track">
+          <div class="preloader-fill" id="preloader-fill"></div>
+        </div>
+        <div class="preloader-meta">
+          <span class="preloader-status" id="preloader-status">📌 Pinning ideas to the corkboard...</span>
+          <span class="preloader-percent" id="preloader-percent">0%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="#" class="brand">
+        <span class="brand-pin" aria-hidden="true">📌</span>
+        <span class="brand-text">CampusConnect</span>
+      </a>
+
+      <nav class="nav-links" id="main-nav-tabs">
+        <a href="#home" class="nav-link active" data-section="home">Home</a>
+        <a href="#pinboard" class="nav-link" data-section="pinboard">📌 Sticky Pinboard</a>
+        <a href="#trending" class="nav-link" data-section="trending">Trending</a>
+        <a href="#latest" class="nav-link" data-section="latest">Latest Posts</a>
+        <a href="#categories" class="nav-link" data-section="categories">Categories</a>
+        <a href="#authors" class="nav-link" data-section="authors">Top Authors</a>
+      </nav>
+
+      <div class="navbar-actions">
+        <!-- Theme & Bookmarks Toggles -->
+        <button id="theme-toggle-btn" class="nav-icon-btn" aria-label="Toggle Dark/Light Mode" title="Toggle Theme">🌙</button>
+        <button id="bookmarks-nav-btn" class="nav-icon-btn" aria-label="View Saved Notes" title="Saved Notes">📌<span id="bookmark-badge-count" class="nav-badge" style="display:none;">0</span></button>
+        
+        <!-- User Profile Badge Container (populated on login) -->
+        <div id="user-nav-container" style="display:none; position:relative;"></div>
+        
+        <!-- Auth & Create Actions -->
+        <button id="login-btn" class="btn btn-ghost nav-action-login">Log In</button>
+        <button id="write-btn" class="btn btn-primary nav-action-write">Start Writing</button>
+        
+        <button id="hamburger-btn" class="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-nav" class="mobile-nav" aria-hidden="true">
+      <div class="mobile-nav-inner">
+        <nav class="mobile-nav-links" id="mobile-nav-tabs">
+          <a href="#home" class="mobile-nav-link active" data-section="home">
+            <span class="mn-icon">🏠</span>
+            <span>Home</span>
+          </a>
+          <a href="#pinboard" class="mobile-nav-link" data-section="pinboard">
+            <span class="mn-icon">📌</span>
+            <span>Sticky Pinboard</span>
+          </a>
+          <a href="#trending" class="mobile-nav-link" data-section="trending">
+            <span class="mn-icon">🔥</span>
+            <span>Trending</span>
+          </a>
+          <a href="#latest" class="mobile-nav-link" data-section="latest">
+            <span class="mn-icon">🆕</span>
+            <span>Latest Posts</span>
+          </a>
+          <a href="#categories" class="mobile-nav-link" data-section="categories">
+            <span class="mn-icon">🗂</span>
+            <span>Categories</span>
+          </a>
+          <a href="#authors" class="mobile-nav-link" data-section="authors">
+            <span class="mn-icon">🏆</span>
+            <span>Top Authors</span>
+          </a>
+        </nav>
+        <div class="mobile-nav-divider"></div>
+        <div class="mobile-nav-actions">
+          <button id="mobile-login-btn" class="btn btn-outline mobile-btn">Log In</button>
+          <button id="mobile-write-btn" class="btn btn-primary mobile-btn">Start Writing ✏️</button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div id="mobile-nav-overlay" class="mobile-nav-overlay" aria-hidden="true"></div>
+
+  <!-- ============ MAIN CONTENT ============ -->
+  <main>
+
+    <!-- ============ HERO SECTION ============ -->
+    <section class="hero" id="home">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <span class="eyebrow">— the campus corkboard, digitized —</span>
+          <h1 class="hero-title">Share Your Ideas.<br>Inspire Your Campus.</h1>
+          <p class="hero-sub">CampusConnect is where students pin up what they're building, learning and living
+            through — one index card at a time. Publish notes, projects and stories your classmates will actually
+            read.</p>
+          <div class="hero-actions">
+            <a href="#pinboard" class="btn btn-primary btn-lg">📌 Sticky Pinboard UI</a>
+            <a href="#filter-section" class="btn btn-outline btn-lg">Explore Blog Notes</a>
+            <button id="hero-sticky-btn" class="btn btn-outline btn-lg" style="border-style:dashed;">✏️ Pin Sticky Note</button>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="corkboard">
+            <div class="pin-card card-1">
+              <span class="pin">📌</span>
+              <div class="pc-tag">Projects</div>
+              <div class="pc-line"></div>
+              <div class="pc-line short"></div>
+            </div>
+            <div class="pin-card card-2">
+              <span class="pin">📌</span>
+              <div class="pc-tag">Study Tips</div>
+              <div class="pc-line"></div>
+              <div class="pc-line short"></div>
+            </div>
+            <div class="pin-card card-3">
+              <span class="pin">📌</span>
+              <div class="pc-tag">Events</div>
+              <div class="pc-line"></div>
+              <div class="pc-line short"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Strip -->
+      <div class="stats-strip">
+        <div class="stat-item">
+          <span class="stat-num">120+</span>
+          <span class="stat-label">Total Students</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">85+</span>
+          <span class="stat-label">Published Blogs</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">10</span>
+          <span class="stat-label">Categories</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">1.4k</span>
+          <span class="stat-label">Total Likes</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STICKY NOTES DASHBOARD & PINBOARD UI ============ -->
+    <section class="section pinboard-section" id="pinboard">
+      <div class="pinboard-header-wrap">
+        <div class="pinboard-head-left">
+          <div class="pinboard-badge">
+            <span class="pulse-dot"></span>
+            <span>Live Interactive Corkboard</span>
+          </div>
+          <h2 class="section-title">📌 Sticky Notes Dashboard</h2>
+          <p class="section-sub">Pin study memos, group tasks, code snippets & campus reminders in real time with interactive checklists</p>
+        </div>
+        
+        <div class="pinboard-head-actions">
+          <button id="add-sticky-btn" class="btn btn-primary pb-action-btn">
+            <span class="pb-btn-icon">➕</span>
+            <span>Pin New Sticky Note</span>
+          </button>
+          <button id="reset-sticky-btn" class="btn btn-outline btn-sm" title="Restore sample campus notes">
+            <span>🔄</span> <span>Reset Notes</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Strip for Pinboard -->
+      <div class="pinboard-metrics-strip">
+        <div class="pb-metric-card">
+          <div class="pb-metric-icon-wrap" style="background:rgba(227, 162, 60, 0.15); color:var(--marigold-dark);">📌</div>
+          <div class="pb-metric-info">
+            <span class="pb-metric-num" id="pb-stat-total">6</span>
+            <span class="pb-metric-label">Total Notes</span>
+          </div>
+        </div>
+        <div class="pb-metric-card">
+          <div class="pb-metric-icon-wrap" style="background:rgba(196, 87, 59, 0.15); color:var(--rust);">⭐</div>
+          <div class="pb-metric-info">
+            <span class="pb-metric-num" id="pb-stat-pinned">2</span>
+            <span class="pb-metric-label">Pinned on Board</span>
+          </div>
+        </div>
+        <div class="pb-metric-card">
+          <div class="pb-metric-icon-wrap" style="background:rgba(110, 143, 115, 0.15); color:var(--sage-dark);">✅</div>
+          <div class="pb-metric-info">
+            <span class="pb-metric-num" id="pb-stat-tasks">5/9</span>
+            <span class="pb-metric-label">Tasks Completed</span>
+          </div>
+        </div>
+        <div class="pb-metric-card">
+          <div class="pb-metric-icon-wrap" style="background:rgba(138, 111, 176, 0.15); color:#8A6FB0;">🔥</div>
+          <div class="pb-metric-info">
+            <span class="pb-metric-num" id="pb-stat-urgent">2</span>
+            <span class="pb-metric-label">Urgent Deadlines</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pinboard Interactive Controls Toolbar -->
+      <div class="pinboard-toolbar">
+        <div class="pb-search-row">
+          <div class="pb-search-wrap">
+            <span class="pb-search-icon">🔍</span>
+            <input type="text" id="sticky-search-input" class="pb-search-input" placeholder="Search sticky notes, tasks, or authors (e.g. DSA, Hackathon, Priya)..." autocomplete="off">
+            <button id="sticky-search-clear" class="pb-search-clear" aria-label="Clear search">✕</button>
+          </div>
+          <div class="pb-sort-wrap">
+            <label for="sticky-sort-select" class="pb-sort-label">Sort:</label>
+            <select id="sticky-sort-select" class="pb-sort-select" aria-label="Sort sticky notes">
+              <option value="pinned">📌 Pinned First</option>
+              <option value="newest">🕒 Newest Created</option>
+              <option value="urgent">🔥 Urgent Priority</option>
+              <option value="tasks">📋 Most Tasks</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="pb-filters-row">
+          <!-- Category Filter Chips -->
+          <div class="pb-chips-wrap">
+            <span class="pb-filter-label">Categories:</span>
+            <div class="pb-chip-group" id="sticky-category-chips">
+              <button class="pb-chip active" data-cat="All">All Notes</button>
+              <button class="pb-chip" data-cat="Exam Prep">📝 Exam Prep</button>
+              <button class="pb-chip" data-cat="Project Tasks">🚀 Project Tasks</button>
+              <button class="pb-chip" data-cat="Study Groups">☕ Study Groups</button>
+              <button class="pb-chip" data-cat="Campus Ideas">💡 Campus Ideas</button>
+              <button class="pb-chip" data-cat="Announcements">📢 Notices</button>
+            </div>
+          </div>
+
+          <!-- Color Dots Filter -->
+          <div class="pb-colors-wrap">
+            <span class="pb-filter-label">Color:</span>
+            <div class="pb-color-dots" id="sticky-color-filters">
+              <button class="pb-color-dot active" data-color="all" title="All colors">All</button>
+              <button class="pb-color-dot c-yellow" data-color="yellow" title="Yellow Notes" style="background:#FEF08A;"></button>
+              <button class="pb-color-dot c-green" data-color="green" title="Green Notes" style="background:#BBF7D0;"></button>
+              <button class="pb-color-dot c-blue" data-color="blue" title="Blue Notes" style="background:#BAE6FD;"></button>
+              <button class="pb-color-dot c-pink" data-color="pink" title="Pink Notes" style="background:#FBCFE8;"></button>
+              <button class="pb-color-dot c-purple" data-color="purple" title="Purple Notes" style="background:#E9D5FF;"></button>
+              <button class="pb-color-dot c-orange" data-color="orange" title="Orange Notes" style="background:#FED7AA;"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real Corkboard Canvas Frame -->
+      <div class="pinboard-canvas-frame">
+        <div class="corkboard-wood-border">
+          <div class="corkboard-surface" id="sticky-notes-container">
+            <!-- Dynamic Sticky Notes rendered here by app.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LIVE SEARCH & FILTER TOOLBAR ============ -->
+    <section class="filter-toolbar-section" id="filter-section">
+      <div class="filter-toolbar">
+        <!-- Interactive Feed Filter Tabs -->
+        <div class="feed-tabs-row" role="tablist" aria-label="Feed filter tabs">
+          <span class="filter-tag-label">Feed Tabs:</span>
+          <button class="feed-tab-btn active" data-view="all" role="tab" aria-selected="true">📌 All Notes (<span id="count-tab-all">6</span>)</button>
+          <button class="feed-tab-btn" data-view="trending" role="tab" aria-selected="false">🔥 Trending (<span id="count-tab-trending">3</span>)</button>
+          <button class="feed-tab-btn" data-view="latest" role="tab" aria-selected="false">🆕 Latest Posts (<span id="count-tab-latest">3</span>)</button>
+          <button class="feed-tab-btn" data-view="bookmarked" role="tab" aria-selected="false">⭐ Saved Bookmarks (<span id="count-tab-bookmarks">0</span>)</button>
+        </div>
+
+        <div class="search-row">
+          <div class="search-input-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="blog-search-input" class="search-input" placeholder="Search student notes, tags, or authors (e.g. Git, AI, Priya, Hackathon)..." autocomplete="off">
+            <button id="blog-search-clear" class="search-clear-btn" aria-label="Clear search">✕</button>
+          </div>
+          <select id="blog-sort-select" class="sort-select" aria-label="Sort posts">
+            <option value="trending">🔥 Trending First</option>
+            <option value="recent">🆕 Most Recent</option>
+            <option value="comments">💬 Most Discussed</option>
+          </select>
+        </div>
+        <div class="filter-tags-row">
+          <span class="filter-tag-label">Topic Tabs:</span>
+          <button class="filter-chip active" data-category="All">All Topics</button>
+          <button class="filter-chip" data-category="Study Tips">📝 Study Tips</button>
+          <button class="filter-chip" data-category="Technology">💻 Technology</button>
+          <button class="filter-chip" data-category="Programming">🖥️ Programming</button>
+          <button class="filter-chip" data-category="Projects">🛠️ Projects</button>
+          <button class="filter-chip" data-category="Career">💼 Career</button>
+          <button class="filter-chip" data-category="Events">🎉 Events</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TRENDING POSTS SECTION ============ -->
+    <section class="section" id="trending">
+      <div class="section-head">
+        <h2 class="section-title">🔥 Trending Posts</h2>
+        <span class="section-sub">Most liked this week</span>
+      </div>
+      <div class="card-grid">
+
+        <!-- Card 1 -->
+        <article class="post-card" data-id="post-1">
+          <div class="post-cover" style="background-image: linear-gradient(135deg, #E3A23C, #C4573B);">
+            <span class="post-thumbtack">📌</span>
+            <span class="post-cat-tag">📝 Study Tips</span>
+          </div>
+          <div class="post-body">
+            <h3 class="post-title">Best Productivity Tips for Students Who Procrastinate</h3>
+            <p class="post-desc">Motivation is unreliable. These are the systems that work even on the days you don't feel like doing anything…</p>
+            <div class="post-meta-row">
+              <span class="post-avatar">PS</span>
+              <span>Priya Sharma</span>
+              <span class="dot-sep"></span>
+              <span>Aug 30, 2026</span>
+              <span class="dot-sep"></span>
+              <span>2 min read</span>
+            </div>
+            <div class="post-divider"></div>
+            <div class="post-foot">
+              <div class="post-stats">
+                <button class="like-btn" data-id="post-1" aria-label="Like post">
+                  <span class="heart-icon">❤</span> <span class="like-num">45</span>
+                </button>
+                <span>💬 4</span>
+              </div>
+              <div class="card-btn-row">
+                <button class="bookmark-toggle" data-id="post-1" title="Bookmark" aria-label="Bookmark">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                  </svg>
+                </button>
+                <a href="#" class="readmore-btn" data-id="post-1">Read More →</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="post-card" data-id="post-2">
+          <div class="post-cover" style="background-image: linear-gradient(135deg, #6E8F73, #4A5567);">
+            <span class="post-thumbtack">📌</span>
+            <span class="post-cat-tag">💻 Technology</span>
+          </div>
+          <div class="post-body">
+            <h3 class="post-title">How AI Is Changing Student Life</h3>
+            <p class="post-desc">From note summarizers to project debugging, AI tools have quietly become part of every student's daily routine…</p>
+            <div class="post-meta-row">
+              <span class="post-avatar">PS</span>
+              <span>Priya Sharma</span>
+              <span class="dot-sep"></span>
+              <span>Aug 18, 2026</span>
+              <span class="dot-sep"></span>
+              <span>3 min read</span>
+            </div>
+            <div class="post-divider"></div>
+            <div class="post-foot">
+              <div class="post-stats">
+                <button class="like-btn" data-id="post-2" aria-label="Like post">
+                  <span class="heart-icon">❤</span> <span class="like-num">42</span>
+                </button>
+                <span>💬 6</span>
+              </div>
+              <div class="card-btn-row">
+                <button class="bookmark-toggle" data-id="post-2" title="Bookmark" aria-label="Bookmark">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                  </svg>
+                </button>
+                <a href="#" class="readmore-btn" data-id="post-2">Read More →</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="post-card" data-id="post-3">
+          <div class="post-cover" style="background-image: linear-gradient(135deg, #8A6FB0, #3C7EA3);">
+            <span class="post-thumbtack">📌</span>
+            <span class="post-cat-tag">💼 Career</span>
+          </div>
+          <div class="post-body">
+            <h3 class="post-title">How to Build a Strong Developer Portfolio Before Graduating</h3>
+            <p class="post-desc">Recruiters skim resumes in seconds but spend real time on a good portfolio. Here's how to make yours worth that time…</p>
+            <div class="post-meta-row">
+              <span class="post-avatar">RV</span>
+              <span>Rahul Verma</span>
+              <span class="dot-sep"></span>
+              <span>Aug 31, 2026</span>
+              <span class="dot-sep"></span>
+              <span>2 min read</span>
+            </div>
+            <div class="post-divider"></div>
+            <div class="post-foot">
+              <div class="post-stats">
+                <button class="like-btn" data-id="post-3" aria-label="Like post">
+                  <span class="heart-icon">❤</span> <span class="like-num">40</span>
+                </button>
+                <span>💬 3</span>
+              </div>
+              <div class="card-btn-row">
+                <button class="bookmark-toggle" data-id="post-3" title="Bookmark" aria-label="Bookmark">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                  </svg>
+                </button>
+                <a href="#" class="readmore-btn" data-id="post-3">Read More →</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============ LATEST POSTS SECTION ============ -->
+    <section class="section alt-bg" id="latest">
+      <div class="section-head">
+        <h2 class="section-title">🆕 Latest Posts</h2>
+        <span class="section-sub">Fresh off the press</span>
+      </div>
+      <div class="card-grid">
+
+        <!-- Card 1 -->
+        <article class="post-card" data-id="post-4">
+          <div class="post-cover" style="background-image: linear-gradient(135deg, #4A5567, #8A6FB0);">
+            <span class="post-thumbtack">📌</span>
+            <span class="post-cat-tag">🖥️ Programming</span>
+          </div>
+          <div class="post-body">
+            <h3 class="post-title">Why Every Student Should Learn Git and GitHub</h3>
+            <p class="post-desc">It's not just for group projects. Git is the single most useful tool I picked up outside the classroom…</p>
+            <div class="post-meta-row">
+              <span class="post-avatar">SK</span>
+              <span>Sara Khan</span>
+              <span class="dot-sep"></span>
+              <span>Aug 26, 2026</span>
+              <span class="dot-sep"></span>
+              <span>2 min read</span>
+            </div>
+            <div class="post-divider"></div>
+            <div class="post-foot">
+              <div class="post-stats">
+                <button class="like-btn" data-id="post-4" aria-label="Like post">
+                  <span class="heart-icon">❤</span> <span class="like-num">38</span>
+                </button>
+                <span>💬 5</span>
+              </div>
+              <div class="card-btn-row">
+                <button class="bookmark-toggle" data-id="post-4" title="Bookmark" aria-label="Bookmark">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                  </svg>
+                </button>
+                <a href="#" class="readmore-btn" data-id="post-4">Read More →</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="post-card" data-id="post-5">
+          <div class="post-cover" style="background-image: linear-gradient(135deg, #3C7EA3, #6E8F73);">
+            <span class="post-thumbtack">📌</span>
+            <span class="post-cat-tag">🛠️ Projects</span>
+          </div>
+          <div class="post-body">
+            <h3 class="post-title">My Experience Building a College Project From Scratch</h3>
+            <p class="post-desc">From a shaky idea to a working demo — the messy, non-linear reality of building something for the first time…</p>
+            <div class="post-meta-row">
+              <span class="post-avatar">DN</span>
+              <span>Devansh Nair</span>
+              <span class="dot-sep"></span>
+              <span>Aug 28, 2026</span>
+              <span class="dot-sep"></span>
+              <span>3 min read</span>
+            </div>
+            <div class="post-divider"></div>
+            <div class="post-foot">
+              <div class="post-stats">
+                <button class="like-btn" data-id="post-5" aria-label="Like post">
+                  <span class="heart-icon">❤</span> <span class="like-num">31</span>
+                </button>
+                <span>💬 2</span>
+              </div>
+              <div class="card-btn-row">
+                <button class="bookmark-toggle" data-id="post-5" title="Bookmark" aria-label="Bookmark">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                  </svg>
+                </button>
+                <a href="#" class="readmore-btn" data-id="post-5">Read More →</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="post-card" data-id="post-6">
+          <div class="post-cover" style="background-image: linear-gradient(135deg, #C4573B, #E3A23C);">
+            <span class="post-thumbtack">📌</span>
+            <span class="post-cat-tag">🎉 Events</span>
+          </div>
+          <div class="post-body">
+            <h3 class="post-title">My First College Hackathon Experience</h3>
+            <p class="post-desc">36 hours, three energy drinks, and a project that broke twenty minutes before judging — here's what I learned…</p>
+            <div class="post-meta-row">
+              <span class="post-avatar">AI</span>
+              <span>Ananya Iyer</span>
+              <span class="dot-sep"></span>
+              <span>Aug 22, 2026</span>
+              <span class="dot-sep"></span>
+              <span>2 min read</span>
+            </div>
+            <div class="post-divider"></div>
+            <div class="post-foot">
+              <div class="post-stats">
+                <button class="like-btn" data-id="post-6" aria-label="Like post">
+                  <span class="heart-icon">❤</span> <span class="like-num">29</span>
+                </button>
+                <span>💬 4</span>
+              </div>
+              <div class="card-btn-row">
+                <button class="bookmark-toggle" data-id="post-6" title="Bookmark" aria-label="Bookmark">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                  </svg>
+                </button>
+                <a href="#" class="readmore-btn" data-id="post-6">Read More →</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============ POPULAR CATEGORIES ============ -->
+    <section class="section" id="categories">
+      <div class="section-head">
+        <h2 class="section-title">🗂 Popular Categories</h2>
+        <span class="section-sub">Browse by topic</span>
+      </div>
+      <div class="category-chip-row">
+        <a href="#categories" class="cat-chip-btn">
+          <span>💻</span>
+          <span>Technology</span>
+          <span class="cat-chip-count">12</span>
+        </a>
+        <a href="#categories" class="cat-chip-btn">
+          <span>🖥️</span>
+          <span>Programming</span>
+          <span class="cat-chip-count">24</span>
+        </a>
+        <a href="#categories" class="cat-chip-btn">
+          <span>📝</span>
+          <span>Study Tips</span>
+          <span class="cat-chip-count">18</span>
+        </a>
+        <a href="#categories" class="cat-chip-btn">
+          <span>🛠️</span>
+          <span>Projects</span>
+          <span class="cat-chip-count">15</span>
+        </a>
+        <a href="#categories" class="cat-chip-btn">
+          <span>💼</span>
+          <span>Career</span>
+          <span class="cat-chip-count">9</span>
+        </a>
+        <a href="#categories" class="cat-chip-btn">
+          <span>🎉</span>
+          <span>Events</span>
+          <span class="cat-chip-count">7</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ TOP STUDENT AUTHORS ============ -->
+    <section class="section alt-bg" id="authors">
+      <div class="section-head">
+        <h2 class="section-title">🏆 Top Student Authors</h2>
+        <span class="section-sub">Most active writers this term</span>
+      </div>
+      <div class="author-row">
+
+        <div class="author-card">
+          <div class="author-avatar-lg">PS</div>
+          <div class="author-name">Priya Sharma</div>
+          <div class="author-count">2 posts · 87 likes</div>
+        </div>
+
+        <div class="author-card">
+          <div class="author-avatar-lg">RV</div>
+          <div class="author-name">Rahul Verma</div>
+          <div class="author-count">2 posts · 76 likes</div>
+        </div>
+
+        <div class="author-card">
+          <div class="author-avatar-lg">SK</div>
+          <div class="author-name">Sara Khan</div>
+          <div class="author-count">1 post · 38 likes</div>
+        </div>
+
+        <div class="author-card">
+          <div class="author-avatar-lg">DN</div>
+          <div class="author-name">Devansh Nair</div>
+          <div class="author-count">1 post · 31 likes</div>
+        </div>
+
+        <div class="author-card">
+          <div class="author-avatar-lg">AI</div>
+          <div class="author-name">Ananya Iyer</div>
+          <div class="author-count">1 post · 29 likes</div>
+        </div>
+
+        <div class="author-card">
+          <div class="author-avatar-lg">KM</div>
+          <div class="author-name">Karan Mehta</div>
+          <div class="author-count">1 post · 25 likes</div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="brand footer-brand">
+          <span class="brand-pin">📌</span>
+          <span class="brand-text">CampusConnect</span>
+        </div>
+        <p>Made for College Students — a place to pin your ideas up where classmates can find them.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="#home">Home</a>
+        <a href="#trending">Trending</a>
+        <a href="#latest">Latest Posts</a>
+        <a href="#categories">Categories</a>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <a href="#categories">Technology</a>
+        <a href="#categories">College Life</a>
+        <a href="#categories">Career</a>
+        <a href="#categories">Study Tips</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>hello@campusconnect.edu</p>
+        <div class="social-row">
+          <span class="social-icon" title="Instagram">📷</span>
+          <span class="social-icon" title="Twitter">🐦</span>
+          <span class="social-icon" title="LinkedIn">💼</span>
+          <span class="social-icon" title="GitHub">💻</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 CampusConnect. Made for College Students.</span>
+    </div>
+  </footer>
+
+  <!-- ============ ARTICLE READER MODAL WITH LIVE COMMENTS ============ -->
+  <div id="article-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="reader-title">
+    <div class="modal-card">
+      <span class="modal-pin">📌</span>
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-eyebrow" id="reader-cat-tag">Category</span>
+          <h2 class="modal-title" id="reader-title">Post Title</h2>
+        </div>
+        <button id="article-modal-close" class="modal-close-btn" aria-label="Close modal">×</button>
+      </div>
+
+      <!-- Article Modal Tabs -->
+      <div class="modal-tabs" style="margin: 12px 24px 0;">
+        <button type="button" class="modal-tab-btn active" id="article-tab-read">📖 Read Note</button>
+        <button type="button" class="modal-tab-btn" id="article-tab-comments">💬 Discussion <span id="reader-tab-comments-num" style="font-size:11px; opacity:0.8;">(0)</span></button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Tab 1: Full Article Reading -->
+        <div id="reader-article-view">
+          <div id="reader-cover" class="reader-cover">
+            <span class="post-thumbtack">📌</span>
+          </div>
+          <div class="post-meta-row" style="font-size:13.5px; margin: 12px 0;">
+            <span class="post-avatar" id="reader-avatar">PS</span>
+            <strong id="reader-author" style="color:var(--ink);">Priya Sharma</strong>
+            <span class="dot-sep"></span>
+            <span id="reader-date">Aug 30, 2026</span>
+            <span class="dot-sep"></span>
+            <span id="reader-readtime">2 min read</span>
+          </div>
+
+          <div class="reader-article-content" id="reader-content">
+            <!-- Populated dynamically by app.js -->
+          </div>
+
+          <div class="reader-actions" style="margin-top: 16px;">
+            <div style="display:flex; gap:12px; align-items:center;">
+              <button id="reader-like-btn" class="like-btn" aria-label="Like post">
+                <span class="heart-icon">❤</span> <span class="like-num">0</span> Likes
+              </button>
+              <span style="font-family:var(--font-mono); font-size:12px; color:var(--ink-faint);">Classmate feedback</span>
+            </div>
+            <button id="reader-bookmark-btn" class="bookmark-toggle" title="Save Note" aria-label="Bookmark">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 2: Live Comments Section -->
+        <div id="reader-comments-view" class="comments-section" style="display:none;">
+          <h3 class="comments-title">Campus Discussion <span id="reader-comments-count" style="font-size:13.5px; color:var(--ink-faint); font-weight:normal;">(0)</span></h3>
+          <div class="comments-list" id="reader-comments-list">
+            <!-- Comments loaded by app.js -->
+          </div>
+          <form id="reader-comment-form" class="add-comment-row">
+            <input type="text" id="reader-comment-input" class="comment-input" placeholder="Pin a thought, question, or comment..." required autocomplete="off">
+            <button type="submit" class="btn btn-primary" style="padding:8px 16px; font-size:13px;">Pin Comment</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ CREATE POST / START WRITING MODAL ============ -->
+  <div id="create-post-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="create-modal-title">
+    <div class="modal-card">
+      <span class="modal-pin">📌</span>
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-eyebrow">Campus Corkboard Note</span>
+          <h2 class="modal-title" id="create-modal-title">Pin a New Blog Post</h2>
+        </div>
+        <button id="create-modal-close" class="modal-close-btn" aria-label="Close modal">×</button>
+      </div>
+
+      <!-- Create Modal Tabs: Edit vs Live Preview -->
+      <div class="modal-tabs" style="margin: 12px 24px 0;">
+        <button type="button" class="modal-tab-btn active" id="create-tab-edit">✏️ Edit Note</button>
+        <button type="button" class="modal-tab-btn" id="create-tab-preview">👁️ Live Corkboard Preview</button>
+      </div>
+
+      <form id="create-post-form">
+        <div class="modal-body">
+          <!-- Form Fields Tab -->
+          <div id="create-fields-wrap">
+            <div class="form-group">
+              <label class="form-label" for="post-title-input">Post Title *</label>
+              <input type="text" id="post-title-input" class="form-input" placeholder="e.g. 5 Habits That Helped Me Ace Data Structures" required maxlength="100">
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div class="form-group">
+                <label class="form-label" for="post-category-select">Topic Category</label>
+                <select id="post-category-select" class="form-select">
+                  <option value="📝 Study Tips">📝 Study Tips</option>
+                  <option value="💻 Technology">💻 Technology</option>
+                  <option value="🖥️ Programming">🖥️ Programming</option>
+                  <option value="🛠️ Projects">🛠️ Projects</option>
+                  <option value="💼 Career">💼 Career</option>
+                  <option value="🎉 Events">🎉 Events</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="post-readtime-input">Read Time</label>
+                <input type="text" id="post-readtime-input" class="form-input" placeholder="e.g. 3 min read" value="2 min read">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="post-author-input">Author Name / Roll No</label>
+              <input type="text" id="post-author-input" class="form-input" placeholder="Your name or Student ID" value="Student Writer">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Note Header Gradient</label>
+              <div class="color-picker-row">
+                <button type="button" class="color-option-btn selected" data-gradient="linear-gradient(135deg, #E3A23C, #C4573B)" style="background: linear-gradient(135deg, #E3A23C, #C4573B);" title="Warm Amber"></button>
+                <button type="button" class="color-option-btn" data-gradient="linear-gradient(135deg, #6E8F73, #4A5567)" style="background: linear-gradient(135deg, #6E8F73, #4A5567);" title="Forest Sage"></button>
+                <button type="button" class="color-option-btn" data-gradient="linear-gradient(135deg, #8A6FB0, #3C7EA3)" style="background: linear-gradient(135deg, #8A6FB0, #3C7EA3);" title="Indigo Violet"></button>
+                <button type="button" class="color-option-btn" data-gradient="linear-gradient(135deg, #C4573B, #E3A23C)" style="background: linear-gradient(135deg, #C4573B, #E3A23C);" title="Rust Flame"></button>
+                <button type="button" class="color-option-btn" data-gradient="linear-gradient(135deg, #3C7EA3, #6E8F73)" style="background: linear-gradient(135deg, #3C7EA3, #6E8F73);" title="Ocean Sage"></button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="post-desc-input">Short Summary / Hook * <small>(displays on index card)</small></label>
+              <input type="text" id="post-desc-input" class="form-input" placeholder="One or two sentences to catch classmates' attention..." required maxlength="160">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="post-content-input">Full Note Content * <small>(paragraphs separated by line breaks)</small></label>
+              <textarea id="post-content-input" class="form-textarea" placeholder="Write out your notes, experiences, study advice, or project learnings here..." required rows="5"></textarea>
+            </div>
+          </div>
+
+          <!-- Live Preview Tab -->
+          <div id="create-preview-wrap" class="preview-container">
+            <!-- Dynamic card preview rendered by app.js -->
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" onclick="document.getElementById('create-modal-close').click()">Cancel</button>
+          <button type="submit" class="btn btn-primary">📌 Pin to Corkboard</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ SAVED BOOKMARKS MODAL ============ -->
+  <div id="bookmarks-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="bm-modal-title">
+    <div class="modal-card">
+      <span class="modal-pin">📌</span>
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-eyebrow">Your Personal Desk</span>
+          <h2 class="modal-title" id="bm-modal-title">Saved Student Notes</h2>
+        </div>
+        <button id="bookmarks-modal-close" class="modal-close-btn" aria-label="Close modal">×</button>
+      </div>
+      <div class="modal-body">
+        <div id="bookmarks-list-container" style="display:flex; flex-direction:column; gap:10px;">
+          <!-- Loaded by app.js -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline btn-sm" onclick="document.getElementById('bookmarks-modal-close').click()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PIN / EDIT STICKY NOTE MODAL ============ -->
+  <div id="sticky-note-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="sn-modal-title">
+    <div class="modal-card" style="max-width:540px;">
+      <span class="modal-pin">📌</span>
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-eyebrow">Virtual Corkboard Pin</span>
+          <h2 class="modal-title" id="sn-modal-title">Pin a Sticky Note</h2>
+        </div>
+        <button id="sn-modal-close" class="modal-close-btn" aria-label="Close modal">×</button>
+      </div>
+
+      <form id="sticky-note-form">
+        <input type="hidden" id="sn-edit-id" value="">
+        <div class="modal-body">
+          <!-- Color Picker Row -->
+          <div class="form-group">
+            <label class="form-label">Note Color Theme</label>
+            <div class="sn-color-picker-row" id="sn-modal-color-picker">
+              <button type="button" class="sn-modal-color-btn active" data-color="yellow" style="background:#FEF08A;" title="Canary Yellow"></button>
+              <button type="button" class="sn-modal-color-btn" data-color="green" style="background:#BBF7D0;" title="Mint Green"></button>
+              <button type="button" class="sn-modal-color-btn" data-color="blue" style="background:#BAE6FD;" title="Sky Blue"></button>
+              <button type="button" class="sn-modal-color-btn" data-color="pink" style="background:#FBCFE8;" title="Coral Pink"></button>
+              <button type="button" class="sn-modal-color-btn" data-color="purple" style="background:#E9D5FF;" title="Lavender"></button>
+              <button type="button" class="sn-modal-color-btn" data-color="orange" style="background:#FED7AA;" title="Warm Peach"></button>
+            </div>
+          </div>
+
+          <!-- Note Title -->
+          <div class="form-group">
+            <label class="form-label" for="sn-title-input">Note Title *</label>
+            <input type="text" id="sn-title-input" class="form-input" placeholder="e.g. DSA Revision / Hackathon Team Search" required maxlength="70">
+          </div>
+
+          <!-- Category & Priority -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="form-group">
+              <label class="form-label" for="sn-category-select">Category</label>
+              <select id="sn-category-select" class="form-select">
+                <option value="Exam Prep">📝 Exam Prep</option>
+                <option value="Project Tasks">🚀 Project Tasks</option>
+                <option value="Study Groups">☕ Study Groups</option>
+                <option value="Campus Ideas">💡 Campus Ideas</option>
+                <option value="Announcements">📢 Announcements</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="sn-priority-select">Priority Level</label>
+              <select id="sn-priority-select" class="form-select">
+                <option value="normal">📌 Normal Note</option>
+                <option value="priority">⭐ Important Priority</option>
+                <option value="urgent">🔥 Urgent Deadline</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Note Content -->
+          <div class="form-group">
+            <label class="form-label" for="sn-content-input">Note Details *</label>
+            <textarea id="sn-content-input" class="form-textarea" placeholder="Add room numbers, time slots, exam units, or project details..." required rows="3" style="min-height:80px;"></textarea>
+          </div>
+
+          <!-- Interactive Checklist Tasks Builder -->
+          <div class="form-group">
+            <label class="form-label">
+              <span>Interactive Checklist Tasks</span>
+              <small>(Optional to-dos)</small>
+            </label>
+            <div class="sn-task-builder-row">
+              <input type="text" id="sn-new-task-input" class="form-input" placeholder="Add a task item (e.g. Review AVL Tree)..." maxlength="60">
+              <button type="button" id="sn-add-task-btn" class="btn btn-outline btn-sm">Add Item</button>
+            </div>
+            <div id="sn-tasks-preview-list" class="sn-builder-tasks-list">
+              <!-- Dynamically added checklist items -->
+            </div>
+          </div>
+
+          <!-- Author Info -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="form-group">
+              <label class="form-label" for="sn-author-input">Your Name</label>
+              <input type="text" id="sn-author-input" class="form-input" placeholder="e.g. Aarav Sharma" value="Campus Student">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="sn-sem-input">Semester / Branch</label>
+              <input type="text" id="sn-sem-input" class="form-input" placeholder="e.g. 3rd Sem CSE" value="3rd Sem">
+            </div>
+          </div>
+
+          <div class="sn-checkbox-option">
+            <label style="display:flex; align-items:center; gap:8px; font-size:13px; cursor:pointer;">
+              <input type="checkbox" id="sn-pin-checkbox" checked>
+              <span>📌 Pin this note prominently at the top of the corkboard</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" onclick="document.getElementById('sn-modal-close').click()">Cancel</button>
+          <button type="submit" id="sn-submit-btn" class="btn btn-primary">📌 Pin Note to Board</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ PROFESSIONAL STUDENT LOGIN & AUTH MODAL ============ -->
+  <div id="login-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="login-modal-title">
+    <div class="modal-card auth-modal-card">
+      <span class="modal-pin">📌</span>
+      
+      <!-- Academic Crest / Header -->
+      <div class="auth-modal-top-strip">
+        <div class="auth-crest-wrap">
+          <span class="auth-crest-icon">🎓</span>
+          <div>
+            <div class="auth-crest-title">CampusConnect Academic Portal</div>
+            <div class="auth-crest-sub">Single Sign-On (SSO) • Student Verified Access</div>
+          </div>
+        </div>
+        <button id="login-modal-close" class="modal-close-btn" aria-label="Close modal">×</button>
+      </div>
+
+      <!-- Auth Tabs: Sign In vs Register -->
+      <div class="auth-tabs-row" role="tablist">
+        <button type="button" class="auth-tab-btn active" id="auth-tab-signin" role="tab" aria-selected="true">
+          <span>🎓</span> <span>Student Sign In</span>
+        </button>
+        <button type="button" class="auth-tab-btn" id="auth-tab-register" role="tab" aria-selected="false">
+          <span>📝</span> <span>New Registration</span>
+        </button>
+      </div>
+
+      <div class="modal-body auth-modal-body">
+        
+        <!-- PANEL 1: STUDENT SIGN IN -->
+        <div id="auth-panel-signin" class="auth-panel">
+          <!-- 1-Click Evaluation Persona Quick Buttons -->
+          <div class="auth-demo-personas">
+            <div class="auth-demo-label">⚡ 1-Click Demo Profiles for Fast Evaluation:</div>
+            <div class="demo-personas-grid">
+              <button type="button" class="demo-persona-card" data-persona="aarav">
+                <span class="dp-avatar">AS</span>
+                <div class="dp-info">
+                  <strong class="dp-name">Aarav Sharma</strong>
+                  <span class="dp-roll">3rd Sem CSE · Roll 23CS108</span>
+                </div>
+                <span class="dp-arrow">→</span>
+              </button>
+              <button type="button" class="demo-persona-card" data-persona="priya">
+                <span class="dp-avatar" style="background:var(--marigold-dark);">PS</span>
+                <div class="dp-info">
+                  <strong class="dp-name">Priya Sharma</strong>
+                  <span class="dp-roll">5th Sem IT · Top Writer</span>
+                </div>
+                <span class="dp-arrow">→</span>
+              </button>
+              <button type="button" class="demo-persona-card" data-persona="rahul">
+                <span class="dp-avatar" style="background:#8A6FB0;">RV</span>
+                <div class="dp-info">
+                  <strong class="dp-name">Rahul Verma</strong>
+                  <span class="dp-roll">7th Sem ECE · Tech Lead</span>
+                </div>
+                <span class="dp-arrow">→</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="auth-divider">
+            <span>or sign in with campus credentials</span>
+          </div>
+
+          <form id="student-login-form" class="auth-form-wrap">
+            <div class="form-group">
+              <label class="form-label" for="login-email-input">
+                <span>Campus Email or Roll Number</span>
+                <small>e.g. 23CS108 or student@campusconnect.edu</small>
+              </label>
+              <div class="auth-input-wrapper">
+                <span class="auth-input-icon">👤</span>
+                <input type="text" id="login-email-input" class="form-input auth-input" placeholder="23CS108 · 3rd Sem" value="23CS108 · 3rd Sem CSE" required autocomplete="username">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="login-password-input">
+                <span>Password</span>
+                <button type="button" id="forgot-password-link" class="auth-text-link">Forgot password?</button>
+              </label>
+              <div class="auth-input-wrapper">
+                <span class="auth-input-icon">🔒</span>
+                <input type="password" id="login-password-input" class="form-input auth-input" placeholder="Enter password (e.g. campus2026)" value="campus2026" required autocomplete="current-password">
+                <button type="button" class="toggle-password-btn" aria-label="Show password" title="Toggle password visibility">👁️</button>
+              </div>
+            </div>
+
+            <div class="auth-options-row">
+              <label class="auth-checkbox-label">
+                <input type="checkbox" id="login-remember-me" checked>
+                <span>Remember this device on campus</span>
+              </label>
+            </div>
+
+            <button type="submit" id="login-submit-btn" class="btn btn-primary auth-submit-btn">
+              <span>Sign In to CampusConnect</span> <span>🎓</span>
+            </button>
+          </form>
+
+          <div class="auth-footer-note">
+            <span>Looking for the dedicated full page?</span>
+            <a href="login.html" class="portal-redirect-link">Open Fullscreen Campus Portal ↗</a>
+          </div>
+        </div>
+
+        <!-- PANEL 2: NEW REGISTRATION -->
+        <div id="auth-panel-register" class="auth-panel" style="display:none;">
+          <form id="student-register-form" class="auth-form-wrap">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div class="form-group">
+                <label class="form-label" for="reg-name-input">Full Name *</label>
+                <input type="text" id="reg-name-input" class="form-input" placeholder="e.g. Kabir Sethi" required maxlength="50">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="reg-roll-input">Roll Number / PRN *</label>
+                <input type="text" id="reg-roll-input" class="form-input" placeholder="e.g. 23CS142" required maxlength="20">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reg-email-input">College Email *</label>
+              <div class="auth-input-wrapper">
+                <span class="auth-input-icon">✉️</span>
+                <input type="email" id="reg-email-input" class="form-input auth-input" placeholder="kabir.sethi@campusconnect.edu" required>
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1.2fr 0.8fr; gap:12px;">
+              <div class="form-group">
+                <label class="form-label" for="reg-branch-select">Branch / Department</label>
+                <select id="reg-branch-select" class="form-select">
+                  <option value="CSE">Computer Science (CSE)</option>
+                  <option value="IT">Information Tech (IT)</option>
+                  <option value="ECE">Electronics (ECE)</option>
+                  <option value="AI/DS">AI & Data Science (AI/DS)</option>
+                  <option value="Mech">Mechanical Engg (ME)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="reg-sem-select">Semester</label>
+                <select id="reg-sem-select" class="form-select">
+                  <option value="3rd Sem" selected>3rd Sem</option>
+                  <option value="1st Sem">1st Sem</option>
+                  <option value="2nd Sem">2nd Sem</option>
+                  <option value="4th Sem">4th Sem</option>
+                  <option value="5th Sem">5th Sem</option>
+                  <option value="6th Sem">6th Sem</option>
+                  <option value="7th Sem">7th Sem</option>
+                  <option value="8th Sem">8th Sem</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div class="form-group">
+                <label class="form-label" for="reg-password-input">Password *</label>
+                <div class="auth-input-wrapper">
+                  <span class="auth-input-icon">🔒</span>
+                  <input type="password" id="reg-password-input" class="form-input auth-input" placeholder="At least 6 chars" required minlength="6">
+                  <button type="button" class="toggle-password-btn" aria-label="Show password">👁️</button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="reg-confirm-password-input">Confirm *</label>
+                <div class="auth-input-wrapper">
+                  <span class="auth-input-icon">🔑</span>
+                  <input type="password" id="reg-confirm-password-input" class="form-input auth-input" placeholder="Repeat password" required minlength="6">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reg-role-select">Student Role</label>
+              <select id="reg-role-select" class="form-select">
+                <option value="Student">Student Learner 🎓</option>
+                <option value="Class Representative">Class Representative (CR) 📋</option>
+                <option value="Club Lead">Club / Society Organizer 🚀</option>
+              </select>
+            </div>
+
+            <button type="submit" id="reg-submit-btn" class="btn btn-primary auth-submit-btn">
+              <span>Create Campus Account & Sign In</span> <span>✨</span>
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ STUDENT PROFILE DROPDOWN MENU ============ -->
+  <div id="profile-dropdown-menu" class="profile-dropdown-card" style="display:none;" role="menu">
+    <div class="pd-header">
+      <div class="pd-avatar-wrap">
+        <span class="pd-avatar" id="pd-avatar-initials">AS</span>
+        <span class="pd-online-dot" title="Active on Campus"></span>
+      </div>
+      <div class="pd-user-info">
+        <h4 class="pd-name" id="pd-name">Aarav Sharma</h4>
+        <span class="pd-roll" id="pd-roll">23CS108 · 3rd Sem CSE</span>
+        <span class="pd-badge">🎓 Verified Student</span>
+      </div>
+    </div>
+    
+    <div class="pd-stats-row">
+      <div class="pd-stat">
+        <span class="pd-stat-num" id="pd-stat-sticky">0</span>
+        <span class="pd-stat-label">Sticky Notes</span>
+      </div>
+      <div class="pd-stat">
+        <span class="pd-stat-num" id="pd-stat-blogs">0</span>
+        <span class="pd-stat-label">Blog Posts</span>
+      </div>
+      <div class="pd-stat">
+        <span class="pd-stat-num" id="pd-stat-saved">0</span>
+        <span class="pd-stat-label">Bookmarks</span>
+      </div>
+    </div>
+
+    <div class="pd-menu-links">
+      <a href="#pinboard" class="pd-menu-item" id="pd-goto-pinboard">
+        <span class="pd-item-icon">📌</span>
+        <span>My Sticky Notes on Board</span>
+      </a>
+      <button type="button" class="pd-menu-item" id="pd-write-sticky">
+        <span class="pd-item-icon">➕</span>
+        <span>Pin New Sticky Note</span>
+      </button>
+      <button type="button" class="pd-menu-item" id="pd-write-blog">
+        <span class="pd-item-icon">✏️</span>
+        <span>Publish a Blog Post</span>
+      </button>
+      <button type="button" class="pd-menu-item" id="pd-view-saved">
+        <span class="pd-item-icon">⭐</span>
+        <span>Saved Desk Bookmarks</span>
+      </button>
+      <button type="button" class="pd-menu-item" id="pd-toggle-theme">
+        <span class="pd-item-icon">🌙</span>
+        <span>Toggle Theme</span>
+      </button>
+    </div>
+
+    <div class="pd-footer">
+      <button type="button" class="btn btn-outline btn-sm pd-signout-btn" id="pd-signout-btn">
+        <span>🚪</span> <span>Sign Out Profile</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ CUSTOM SIGN OUT CONFIRMATION MODAL ============ -->
+  <div id="signout-confirm-modal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="signout-modal-title">
+    <div class="modal-card" style="max-width:440px;">
+      <span class="modal-pin">📌</span>
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-eyebrow">Session Management</span>
+          <h2 class="modal-title" id="signout-modal-title">Sign Out Profile</h2>
+        </div>
+        <button id="signout-modal-close" class="modal-close-btn" aria-label="Close modal">×</button>
+      </div>
+      <div class="modal-body">
+        <div id="signout-user-summary" class="signout-summary-box">
+          <!-- Filled by app.js -->
+        </div>
+        <p style="font-size:13px; color:var(--ink-soft); line-height:1.5; margin:0;">
+          Select how you want to handle notes and blogs published during this student session:
+        </p>
+        <div class="signout-actions-list">
+          <button type="button" id="signout-keep-btn" class="btn btn-primary" style="width:100%; justify-content:center;">
+            <span>🚪 Sign Out & Keep My Notes on Board</span>
+          </button>
+          <button type="button" id="signout-delete-btn" class="btn btn-outline" style="width:100%; justify-content:center; color:var(--rust); border-color:rgba(196,87,59,0.35);">
+            <span>🗑️ Sign Out & Delete My Profile Notes</span>
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" onclick="document.getElementById('signout-confirm-modal').classList.remove('active'); document.body.style.overflow='';">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FORGOT PASSWORD SIMULATION DIALOG ============ -->
+  <div id="forgot-password-modal" class="modal-overlay" aria-hidden="true" role="dialog">
+    <div class="modal-card" style="max-width:400px;">
+      <span class="modal-pin">📌</span>
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-eyebrow">Campus Security</span>
+          <h2 class="modal-title" style="font-size:18px;">Password Recovery</h2>
+        </div>
+        <button id="forgot-modal-close" class="modal-close-btn">×</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:13px; color:var(--ink-soft); line-height:1.5; margin:0;">
+          Enter your university student ID or roll number to generate a secure campus recovery token:
+        </p>
+        <div class="form-group" style="margin-top:8px;">
+          <input type="text" id="forgot-email-input" class="form-input" placeholder="e.g. 23CS108 or student@campusconnect.edu" value="23CS108">
+        </div>
+        <button type="button" id="forgot-submit-btn" class="btn btn-primary" style="width:100%;">Generate Reset Token 🔑</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TOAST NOTIFICATION CONTAINER ============ -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- ============ FLOATING BACK TO TOP BUTTON ============ -->
+  <button id="back-to-top" class="back-to-top" aria-label="Scroll back to top" title="Scroll to top">📌</button>
+
+  <!-- ============ CAMPUSCONNECT MAIN JAVASCRIPT ============ -->
+  <script src="app.js"></script>
+
+</body>
+
+</html>
