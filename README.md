@@ -18,41 +18,78 @@ A modern, responsive, and collaborative student blogging platform designed for s
 
 ## 🛠️ Built With
 
-- **HTML5**: Semantic markup and structure
-- **CSS3**: Modern layouts (Flexbox, Grid), CSS variables, custom typography (Google Fonts)
-- **JavaScript (ES6+)**: Interactive DOM manipulation, local state management, dynamic animations
+- **React 18 & Vite**: Component-driven architecture, Hot Module Replacement (HMR), fast development server
+- **CSS3 / Vanilla Design System**: Campus Corkboard aesthetic, custom CSS variables, responsive Grid & Flexbox, smooth animations
+- **Typography**: Google Fonts (*Fraunces* serif display, *Inter* clean body, *JetBrains Mono* code & tags)
+- **HTML5 & Modern JavaScript (ES6+)**: Semantic markup, localStorage state persistence
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Running on Localhost (React)
 
 ### Prerequisites
 
-No special package installation or build step is required! You only need a modern web browser.
+- Node.js (v18 or higher recommended) & npm
 
-### Running Locally
+### Quick Start
 
-1. **Clone the repository**:
+1. **Install dependencies**:
    ```bash
-   git clone https://github.com/jagritg4-sudo/Student-Blog-Platform_.git
-   cd Student-Blog-Platform_
+   npm install
    ```
 
-2. **Open the project**:
-   - Double-click `login.html` or `home.html` to open directly in your web browser.
-   - Alternatively, open with VS Code and use the **Live Server** extension on port `5501`.
+2. **Start the local development server**:
+   ```bash
+   npm run dev
+   ```
+
+3. **Open in browser**:
+   Navigate to:
+   ```text
+   http://localhost:5173/
+   ```
+
+4. **Build for production** (optional):
+   ```bash
+   npm run build
+   ```
 
 ---
 
 ## 📁 Project Structure
 
 ```text
-├── home.html         # Main dashboard and blog feed
-├── home.css          # Styling for home page and components
-├── login.html        # Authentication page (Login / Register)
-├── app.js            # Client-side scripts and functionality
-├── README.md         # Documentation
-└── .gitignore        # Git ignore rules
+├── index.html            # Vite entry point for React application
+├── vite.config.js        # Vite configuration
+├── package.json          # Project scripts and dependencies
+├── src/
+│   ├── main.jsx          # React DOM root entry
+│   ├── App.jsx           # Main App component with full state management
+│   ├── index.css         # Corkboard design system and token styling
+│   ├── data/
+│   │   └── initialData.js # Sample posts, sticky notes, categories, authors
+│   └── components/
+│       ├── Navbar.jsx           # Brand, links, theme switch, bookmarks, user badge
+│       ├── Preloader.jsx        # 3-second animated corkboard loading screen
+│       ├── ScrollWidgets.jsx    # Reading progress bar & floating back-to-top button
+│       ├── HeroSection.jsx      # Digital corkboard graphic with animated stat counters
+│       ├── StickyNotesBoard.jsx # Live Interactive Corkboard with checklists & filters
+│       ├── BlogFeed.jsx         # Search, topic chips, feed tabs, post cards with likes
+│       ├── ExploreSections.jsx  # Popular categories & Top student authors
+│       ├── Footer.jsx           # Links, categories, and academic footer
+│       ├── ToastContainer.jsx   # Corkboard toast notifications
+│       ├── ProfileDropdown.jsx  # Verified student card & quick action menu
+│       └── Modals/
+│           ├── ArticleReaderModal.jsx  # Reading view & discussion comments
+│           ├── CreatePostModal.jsx     # Edit note & live corkboard preview
+│           ├── StickyNoteModal.jsx     # Sticky note editor & task checklist builder
+│           ├── SavedBookmarksModal.jsx # Saved desk bookmarks drawer
+│           ├── AuthModal.jsx           # 1-click evaluation personas & auth portal
+│           └── AuthDialogs.jsx         # Sign out options & password recovery
+├── home.html             # Vanilla HTML version (backup)
+├── home.css              # Vanilla CSS stylesheet
+├── login.html            # Standalone login page
+└── app.js                # Vanilla JavaScript controller
 ```
 
 ---

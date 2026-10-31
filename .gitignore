@@ -14,3 +14,9 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+
+# Node dependencies and build artifacts
+node_modules/
+dist/
+dist-ssr/
+*.local
